@@ -1,0 +1,11 @@
+# 服务器相关配置
+server:
+  port: 9090
+  context-path: /boot
+  servlet-path: "*.html"
+
+# 日志配置
+logging:
+  file: ../logs/spring-boot-demo.log
+  level.org.springframework.web: DEBUG
+
