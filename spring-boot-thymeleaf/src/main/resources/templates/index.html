@@ -1,0 +1,53 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- begin::Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>
+        Thymeleaf 表格演示
+    </title>
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--begin::Base Styles -->
+    <link th:href="@{/assets/vendors/base/vendors.bundle.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/demo/default/base/style.bundle.css}" rel="stylesheet" type="text/css" />
+    <!--end::Base Styles -->
+    <link rel="shortcut icon" th:href="@{/assets/demo/default/media/img/logo/favicon.ico}" />
+</head>
+<!-- end::Head -->
+
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+
+<table class="m-datatable" id="html_table" width="100%">
+    <thead>
+    <tr>
+        <th title="Field #1">
+            ID
+        </th>
+        <th title="Field #2">
+            姓名
+        </th>
+        <th title="Field #3">
+            年龄
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user:${list}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.name}">赵六</td>
+        <td th:text="${user.age}">30</td>
+    </tr>
+    </tbody>
+</table>
+
+<!--begin::Base Scripts -->
+<script th:src="@{/assets/vendors/base/vendors.bundle.js}" type="text/javascript"></script>
+<script th:src="@{/assets/demo/default/base/scripts.bundle.js}" type="text/javascript"></script>
+<!--end::Base Scripts -->
+<!--begin::Page Resources -->
+<script th:src="@{/assets/demo/default/custom/components/datatables/base/html-table.js}" type="text/javascript"></script>
+<!--end::Page Resources -->
+</body>
+</html>
