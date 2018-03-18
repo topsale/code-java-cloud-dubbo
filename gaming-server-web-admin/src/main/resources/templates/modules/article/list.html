@@ -1,0 +1,121 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- begin::Head -->
+<head>
+    <title>
+        后台管理 | 文章管理
+    </title>
+
+    <th:block th:include="includes/header :: header"></th:block>
+    <link href="/assets/plugins/treeTable/themes/vsStyle/treeTable.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+
+<div class="m-portlet m-portlet--mobile">
+    <div class="m-portlet__head">
+        <div class="m-portlet__head-caption">
+            <div class="m-portlet__head-title">
+                <h3 class="m-portlet__head-text">
+                    文章管理
+                </h3>
+            </div>
+        </div>
+
+        <div class="m-portlet__head-tools">
+            <a href="/article/form" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                <span>
+                    <i class="la la-plus"></i>
+                    <span>
+                        新增
+                    </span>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="m-portlet__body">
+        <div class="m_datatable" id="ajax_data"></div>
+    </div>
+</div>
+
+<th:block th:include="includes/footer :: footer"></th:block>
+<script src="/assets/app/js/datatable.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        var columns = [{
+            field: "id",
+            title: "#",
+            width: 50,
+            sortable: false,
+            textAlign: 'center',
+            selector: {class: 'm-checkbox--solid m-checkbox--brand'}
+        }, {
+            field: 'title',
+            title: '文章标题',
+            sortable: false,
+            selector: false,
+            textAlign: 'left',
+            template: function (data) {
+                return '\
+                    <span title="' + data.title + '" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">\
+                        \ ' + data.title + ' \
+                    </span>\
+                    '
+            }
+        }, {
+            field: 'introduction',
+            title: '文章简介',
+            sortable: false,
+            selector: false,
+            textAlign: 'left',
+            template: function (data) {
+                return '\
+                    <span title="' + data.introduction + '" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">\
+                        \ ' + data.introduction + ' \
+                    </span>\
+                    '
+            }
+        }, {
+            field: 'url',
+            title: '链接地址',
+            sortable: false,
+            selector: false,
+            textAlign: 'center',
+            template: function (data) {
+                return '<a class="m-link" target="_blank" href="' + data.url + '">查看</a>';
+            }
+        }, {
+            field: 'type',
+            title: '文章类型',
+            sortable: false,
+            selector: false,
+            textAlign: 'center',
+            template: function (data) {
+                var status = {
+                    1: {'type': '文章'},
+                    2: {'type': '视频'}
+                };
+                return status[data.type].type;
+            }
+        }, {
+            field: '操作',
+            width: 110,
+            title: '操作',
+            sortable: false,
+            overflow: 'visible',
+            template: function (row, index, datatable) {
+                return '\
+						<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="编辑">\
+							<i class="la la-edit"></i>\
+						</a>\
+						<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="删除">\
+							<i class="la la-trash"></i>\
+						</a>\
+					';
+            }
+        }];
+
+       DataTable.initAjaxTable("ajax_data", "/article/data", columns);
+    });
+</script>
+</body>
+</html>

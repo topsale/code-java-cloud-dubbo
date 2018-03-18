@@ -1,0 +1,252 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:thSys="">
+<!-- begin::Head -->
+<head>
+    <title>
+        后台管理 | 文章管理
+    </title>
+
+    <th:block th:include="includes/header :: header"></th:block>
+    <link href="/assets/plugins/wangEditor/wangEditor.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+
+<div class="m-portlet">
+    <div class="m-portlet__head">
+        <div class="m-portlet__head-caption">
+            <div class="m-portlet__head-title">
+                <span class="m-portlet__head-icon m--hide"> <i class="la la-gear"></i> </span>
+                <h3 class="m-portlet__head-text"> 文章管理 </h3>
+            </div>
+        </div>
+    </div>
+    <!--begin::Form-->
+    <form class="m-form" action="/article/save" method="post">
+        <div class="m-portlet__body">
+            <div class="form-group m-form__group row">
+                <label class="col-lg-3 col-form-label"> 所属频道 </label>
+                <div class="col-lg-6">
+                    <input id="channelId" name="channelId" type="hidden"/>
+                    <input id="channelText" type="text" class="form-control m-input" placeholder="请选择" readonly
+                           data-toggle="modal" data-target="#m_modal_1"/>
+                </div>
+            </div>
+
+            <div class="form-group m-form__group row">
+                <label class="col-lg-3 col-form-label"> 文章标题 </label>
+                <div class="col-lg-6">
+                    <input name="title" type="text" class="form-control m-input" placeholder="文章标题"/>
+                </div>
+            </div>
+
+            <div class="form-group m-form__group row">
+                <label class="col-lg-3 col-form-label"> 文章链接 </label>
+                <div class="col-lg-6">
+                    <input name="url" type="text" class="form-control m-input" placeholder="文章链接"/>
+                </div>
+            </div>
+
+            <div class="form-group m-form__group row">
+                <label class="col-lg-3 col-form-label"> 文章简介 </label>
+                <div class="col-lg-6">
+                    <input name="introduction" type="text" class="form-control m-input" placeholder="文章简介"/>
+                </div>
+            </div>
+
+            <div class="form-group m-form__group row">
+                <label class="col-lg-3 col-form-label"> 文章类型 </label>
+                <div class="col-lg-6">
+                    <thSys:dict name="type" type="article_type" class="form-control m-input"/>
+                </div>
+            </div>
+
+            <div class="form-group m-form__group row">
+                <label class="col-lg-3 col-form-label"> 图片1 </label>
+                <div class="col-lg-6">
+                    <div>
+                        <input id="image1" name="image1" type="text" class="form-control m-input" placeholder="图片1"/>
+                    </div>
+
+                    <div class="m-dropzone dropzone" action="/upload" id="m-dropzone-one">
+                        <div class="m-dropzone__msg dz-message needsclick">
+                            <h3 class="m-dropzone__msg-title">
+                                拖拽文件到此处或点击上传
+                            </h3>
+                            <span class="m-dropzone__msg-desc">
+                                仅支持图片
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group m-form__group row">
+                <label class="col-lg-3 col-form-label"> 图片2 </label>
+                <div class="col-lg-6">
+                    <div>
+                        <input id="image2" name="image2" type="text" class="form-control m-input" placeholder="图片2"/>
+                    </div>
+
+                    <div class="m-dropzone dropzone" action="/upload" id="m-dropzone-two">
+                        <div class="m-dropzone__msg dz-message needsclick">
+                            <h3 class="m-dropzone__msg-title">
+                                拖拽文件到此处或点击上传
+                            </h3>
+                            <span class="m-dropzone__msg-desc">
+                                仅支持图片
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group m-form__group row">
+                <label class="col-lg-3 col-form-label"> 图片3 </label>
+                <div class="col-lg-6">
+                    <div>
+                        <input id="image3" name="image3" type="text" class="form-control m-input" placeholder="图片3"/>
+                    </div>
+
+                    <div class="m-dropzone dropzone" action="/upload" id="m-dropzone-three">
+                        <div class="m-dropzone__msg dz-message needsclick">
+                            <h3 class="m-dropzone__msg-title">
+                                拖拽文件到此处或点击上传
+                            </h3>
+                            <span class="m-dropzone__msg-desc">
+                                仅支持图片
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group m-form__group row">
+                <label class="col-lg-3 col-form-label"> 文章详情 </label>
+                <div class="col-lg-6">
+                    <div id="editor">
+                        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="m-portlet__foot m-portlet__foot--fit">
+            <div class="m-form__actions m-form__actions">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <button type="submit" class="btn btn-success"> 提交</button>
+                        <button type="reset" class="btn btn-secondary" onclick="history.go(-1);"> 返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--end::Form-->
+</div>
+
+<div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> 所属频道 </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"> &times; </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="m_tree_1" class="tree-demo"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> 关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"> 选择</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:include="includes/footer :: footer"></th:block>
+<script src="/assets/app/js/treeview.js" type="text/javascript"></script>
+<script src="/assets/plugins/wangEditor/wangEditor.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        TreeView.initTree("m_tree_1", "/channel/tree", function (obj, e) {
+            var currentNode = e.node;
+            $("#channelId").val(currentNode.id);
+            $("#channelText").val(currentNode.text);
+        });
+
+        initEditor();
+    });
+
+    /**
+     * 初始化富文本控件
+     */
+    function initEditor() {
+        // 初始化富文本控件
+        var editor = new window.wangEditor('#editor');
+
+        // 设置上传服务器地址
+        editor.customConfig.uploadImgServer = '/upload';
+
+        // 自定义上传文件的参数名
+        editor.customConfig.uploadFileName = 'wangEditorH5File';
+
+        editor.create();
+    }
+
+    Dropzone.options.mDropzoneOne = {
+        paramName: "uploadFile", // The name that will be used to transfer the file
+        maxFiles: 1,
+        maxFilesize: 10, // MB
+        addRemoveLinks: true,
+        acceptedFiles: "image/*",
+        accept: function (file, done) {
+            if (file.name == "justinbieber.jpg") {
+                done("Naha, you don't.");
+            } else {
+                done();
+            }
+        },
+        success: function(file, done) {
+            $("#image1").val(done.url);
+        }
+    };
+
+    Dropzone.options.mDropzoneTwo = {
+        paramName: "uploadFile", // The name that will be used to transfer the file
+        maxFiles: 1,
+        maxFilesize: 10, // MB
+        addRemoveLinks: true,
+        acceptedFiles: "image/*",
+        accept: function (file, done) {
+            if (file.name == "justinbieber.jpg") {
+                done("Naha, you don't.");
+            } else {
+                done();
+            }
+        },
+        success: function(file, done) {
+            $("#image2").val(done.url);
+        }
+    };
+
+    Dropzone.options.mDropzoneThree = {
+        paramName: "uploadFile", // The name that will be used to transfer the file
+        maxFiles: 1,
+        maxFilesize: 10, // MB
+        addRemoveLinks: true,
+        acceptedFiles: "image/*",
+        accept: function (file, done) {
+            if (file.name == "justinbieber.jpg") {
+                done("Naha, you don't.");
+            } else {
+                done();
+            }
+        },
+        success: function(file, done) {
+            $("#image3").val(done.url);
+        }
+    };
+</script>
+</body>
+</html>

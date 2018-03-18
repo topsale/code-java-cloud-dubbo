@@ -1,0 +1,26 @@
+stages:
+  - mvn_package
+  - build_image
+  - push_image
+  - notify_deploy
+
+mvn_package:
+ stage: mvn_package
+ script:
+   mvn clean package
+
+build_image:
+  stage: build_image
+  script:
+    cd docker
+    docker build -t 192.168.75.136:5000/gaming-server-web-admin .
+
+push_image:
+  stage: push_image
+  script:
+    docker push 192.168.75.136:5000/gaming-server-web-admin
+
+notify_deploy:
+  stage: notify_deploy
+  script:
+    ssh lusifer@192.168.75.139 "cd /usr/local/docker/gaming-server-web-admin; ./deploy.sh"

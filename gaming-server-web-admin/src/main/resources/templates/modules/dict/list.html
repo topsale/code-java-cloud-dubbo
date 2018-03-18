@@ -1,0 +1,118 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- begin::Head -->
+<head>
+    <title>
+        后台管理 | 字典管理
+    </title>
+
+    <th:block th:include="includes/header :: header"></th:block>
+</head>
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+
+<div class="m-portlet m-portlet--mobile">
+    <div class="m-portlet__head">
+        <div class="m-portlet__head-caption">
+            <div class="m-portlet__head-title">
+                <h3 class="m-portlet__head-text">
+                    字典管理
+                </h3>
+            </div>
+        </div>
+
+        <div class="m-portlet__head-tools">
+            <a href="/dict/form" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                <span>
+                    <i class="la la-plus"></i>
+                    <span>
+                        新增
+                    </span>
+                </span>
+            </a>
+
+            <a href="#" class="btn btn-danger m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                <span>
+                    <i class="la la-trash"></i>
+                    <span>
+                        删除
+                    </span>
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <div class="m-portlet__body">
+        <div class="m_datatable" id="ajax_data"></div>
+    </div>
+</div>
+
+<th:block th:include="includes/footer :: footer"></th:block>
+<script src="/assets/app/js/datatable.js" type="text/javascript"></script>
+
+<script>
+    $(function () {
+        DataTable.initAjaxTable("ajax_data", "/dict/data", [{
+            field: "id",
+            title: "#",
+            sortable: false,
+            width: 40,
+            textAlign: 'center',
+            selector: {class: 'm-checkbox--solid m-checkbox--brand'}
+        }, {
+            field: 'value',
+            title: '标签值',
+            sortable: false,
+            selector: false,
+            textAlign: 'center'
+        }, {
+            field: 'label',
+            title: '标签名',
+            sortable: false,
+            selector: false,
+            textAlign: 'center'
+        }, {
+            field: 'type',
+            title: '类型',
+            sortable: false,
+            selector: false,
+            textAlign: 'center'
+        }, {
+            field: 'description',
+            title: '描述',
+            sortable: false,
+            selector: false,
+            textAlign: 'center'
+        }, {
+            field: 'sort',
+            title: '排序',
+            sortable: false,
+            selector: false,
+            textAlign: 'center'
+        }, {
+            field: 'updateDate',
+            title: '更新时间',
+            sortable: false,
+            selector: false,
+            textAlign: 'center'
+        }, {
+            field: '操作',
+            title: '操作',
+            width: 110,
+            sortable: false,
+            overflow: 'visible',
+            textAlign: 'center',
+            template: function (row, index, datatable) {
+                return '\
+                    <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="编辑">\
+                        <i class="la la-edit"></i>\
+                    </a>\
+                    <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="删除">\
+                        <i class="la la-trash"></i>\
+                    </a>\
+                ';
+            }
+        }]);
+    });
+</script>
+</body>
+</html>

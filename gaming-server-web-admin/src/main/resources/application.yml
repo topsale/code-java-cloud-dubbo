@@ -1,0 +1,29 @@
+server:
+  port: 8100
+
+spring:
+  application:
+    name: gaming-server-web-admin
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    content-type: text/html
+
+dubbo:
+  scan:
+    base-packages: com.ooqui.gaming.server.web.admin
+  application:
+    id: gaming-server-web-admin
+    name: gaming-server-web-admin
+  registry:
+    id: zookeeper
+    address: zookeeper://192.168.75.132:2181?backup=192.168.75.132:2182,192.168.75.132:2183
+
+# FastDFS Begin
+fastdfs.base.url: http://192.168.75.132:8888/
+storage:
+  type: fastdfs
+  fastdfs:
+    tracker_server: 192.168.75.132:22122
+# FastDFS End
