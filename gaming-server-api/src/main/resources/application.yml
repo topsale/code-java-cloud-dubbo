@@ -1,0 +1,22 @@
+server:
+  port: 8500
+
+spring:
+  application:
+    name: gaming-server-api
+
+dubbo:
+  scan:
+    base-packages: com.ooqui.gaming.server.api
+  application:
+    id: gaming-server-api
+    name: gaming-server-api
+  registry:
+    id: zookeeper
+    address: zookeeper://192.168.75.132:2181?backup=192.168.75.132:2182,192.168.75.132:2183
+
+rest:
+  path:
+    api:
+      v1: api/v1
+      v2: api/v2
